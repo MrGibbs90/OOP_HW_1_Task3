@@ -1,5 +1,7 @@
 package transport;
 
+import java.time.LocalDate;
+
 public class Auto {
    private final String brand;
    private final String model;
@@ -12,6 +14,9 @@ public class Auto {
     private String registrationNumber;
     private final int numberOfSeats;
     private boolean summerTires;
+    private Key key;
+
+    private Insurance insurance;
 
     public Auto(String brand,
                 String model,
@@ -23,7 +28,9 @@ public class Auto {
                 String bodyType,
                 String registrationNumber,
                 int numberOfSeats,
-                boolean summerTires) {
+                boolean summerTires,
+                Key key,
+                Insurance insurance) {
         if (brand == null) {
             this.brand = "default";
         } else {
@@ -60,6 +67,17 @@ public class Auto {
         } else {
             this.bodyType = bodyType;
         }
+        if (key == null) {
+            this.key = new Key();
+        } else {
+            this.key = key;
+        }
+        if (insurance == null) {
+            this.insurance= new Insurance();
+        } else {
+            this.insurance = insurance;
+        }
+
         this.numberOfSeats = numberOfSeats;
         this.summerTires = summerTires;
     }
@@ -81,7 +99,9 @@ public class Auto {
                 "седан",
                 "х000хх000",
                 5,
-                true
+                true,
+                new Key(),
+                new Insurance()
         );
     }
 
@@ -158,6 +178,22 @@ public class Auto {
         summerTires = !summerTires;
     }
 
+    public Key getKey() {
+        return key;
+    }
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
+    public Insurance getInsurance() {
+        return insurance;
+    }
+
+    public void setInsurance(Insurance insurance) {
+        this.insurance = insurance;
+    }
+
     public boolean isCorrectRegNumber(){
         //х000хх000
         if (registrationNumber.length() != 9) {
@@ -171,5 +207,76 @@ public class Auto {
         return Character.isDigit(chars[1]) && Character.isDigit(chars[2]) && Character.isDigit(chars[3]) &&
                 Character.isDigit(chars[6]) && Character.isDigit(chars[7]) && Character.isDigit(chars[8]);
     }
+
+    public static class Key {
+        private final boolean remoteEngineStart;
+        private final boolean keylessaAccess;
+
+        public Key(boolean remoteEngineStart, boolean keylessaAccess) {
+            this.remoteEngineStart = remoteEngineStart;
+            this.keylessaAccess = keylessaAccess;
+        }
+
+        public Key() {
+            this(false, false);
+        }
+
+        public boolean isRemoteEngineStart() {
+            return remoteEngineStart;
+        }
+
+        public boolean isKeylessAccess() {
+            return keylessaAccess;
+        }
+    }
+
+    public static class Insurance {
+        private final LocalDate validityPeriod;
+        private final double cost;
+        private final String number;
+
+        public Insurance(LocalDate validityPeriod, double cost, String number) {
+            if (validityPeriod == null) {
+                this.validityPeriod = LocalDate.now().plusDays(365);
+            } else {
+                this.validityPeriod = validityPeriod;
+            }
+            this.cost = cost;
+            if (number == null) {
+                this.number = "123456789";
+            } else {
+                this.number = number;
+            }
+        }
+
+        public Insurance() {
+            this(null, 10_000D, null);
+        }
+
+        public LocalDate getValidityPeriod() {
+            return validityPeriod;
+        }
+
+        public double getCost() {
+            return cost;
+        }
+
+        public String getNumber() {
+            return number;
+        }
+
+        public void checkValidityPeriod() {
+            if (validityPeriod.isBefore(LocalDate.now()) || validityPeriod.isEqual(LocalDate.now())) {
+                System.out.println("Нужно срочно ехать оформлять новую страховку!");
+            }
+        }
+
+        public void checkNumber() {
+            if (number.length() != 9) {
+                System.out.println("Номер страховки некорректный!");
+            }
+        }
+    }
+
 
 }
