@@ -1,5 +1,7 @@
 import transport.Auto;
 
+import java.time.LocalDate;
+
 public class Main {
     public static void main(String[] args) {
         Auto lada = new Auto(
@@ -19,6 +21,7 @@ public class Main {
                 2020,
                 "Германия");
         audi.setTransmission("автомат");
+        audi.setKey(new Auto.Key(true, true));
         Auto bmw = new Auto(
                 "BMW",
                 "Z8",
@@ -27,6 +30,9 @@ public class Main {
                 2021,
                 "Германия");
         bmw.setSummerTires(false);
+        bmw.setInsurance(new Auto.Insurance(LocalDate.now(), 30_000D, "7485903"));
+        bmw.getInsurance().checkValidityPeriod();
+        bmw.getInsurance().checkNumber();
         Auto kia = new Auto(
                 "KIA",
                 "Sportage 4-го поколения",
@@ -94,7 +100,12 @@ public class Main {
                         ", тип кузова: " + auto.getBodyType() +
                         ", рег. номер: " + auto.getRegistrationNumber() +
                         ", количество мест: " + auto.getNumberOfSeats() +
-                        ", " + (auto.isSummerTires() ? "летняя" : "зимняя") + " резина"
+                        ", " + (auto.isSummerTires() ? "летняя" : "зимняя") + " резина" +
+                        ", " + (auto.getKey().isKeylessAccess() ? "безключевой доступ" : "доступ только с ключа") +
+                        ", " + (auto.getKey().isRemoteEngineStart() ? "удалённый запуск" : "удалённый запуск отсутствует") +
+                        ", номер страховки: " + auto.getInsurance().getNumber() +
+                        ", стоимость страховки: " + auto.getInsurance().getCost() +
+                        ", срок действия страховки: " + auto.getInsurance().getValidityPeriod()
 
         );
     }
