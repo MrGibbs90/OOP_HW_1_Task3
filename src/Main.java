@@ -1,4 +1,5 @@
 import transport.Auto;
+import transport.Bus;
 
 import java.time.LocalDate;
 
@@ -10,103 +11,94 @@ public class Main {
                 1.7,
                 "Жёлтый",
                 2015,
-                "Россия");
-        lada.setRegistrationNumber("у758ке949");
-        System.out.println(lada.isCorrectRegNumber());
+                "Россия",
+                150,
+                "МКПП",
+                "седан",
+                "у758ке949",
+                5,
+                true,
+                null,
+                null
+                );
+        System.out.println(lada);
         Auto audi = new Auto(
                 "Audi",
                 "A8 50 L TDI quattro",
                 3.0,
                 "Чёрный",
                 2020,
-                "Германия");
-        audi.setTransmission("автомат");
-        audi.setKey(new Auto.Key(true, true));
+                "Германия",
+                230,
+                "АКПП",
+                "седан",
+                "к869ен151",
+                5,
+                true,
+                null,
+                null);
+        System.out.println(audi);
         Auto bmw = new Auto(
                 "BMW",
                 "Z8",
                 3.0,
                 "Чёрный",
                 2021,
-                "Германия");
-        bmw.setSummerTires(false);
-        bmw.setInsurance(new Auto.Insurance(LocalDate.now(), 30_000D, "7485903"));
-        bmw.getInsurance().checkValidityPeriod();
-        bmw.getInsurance().checkNumber();
+                "Германия",
+                300,
+                "АКПП",
+                "купе",
+                "е971нх262",
+                5,
+                true,
+                null,
+                null);
+        System.out.println(bmw);
         Auto kia = new Auto(
                 "KIA",
                 "Sportage 4-го поколения",
                 2.4,
                 "Красный",
                 2018,
-                "Южная Корея");
+                "Южная Корея",
+                180,
+                "АКПП",
+                "кроссовер",
+                "о596см694",
+                5,
+                true,
+                null,
+                null);
+        System.out.println(kia);
         Auto hyundai = new Auto(
                 "Hyundai",
                 "Avante",
                 1.6,
                 "Оранжевый",
                 2016,
-                "Южная Корея");
-        System.out.println(
-                "Марка автомобиля " + lada.getBrand() +
-                        ", модель " + lada.getModel() +
-                        ", год выпуска " + lada.getYear() +
-                        ", страна производства " + lada.getCountry() +
-                        ", цвет " + lada.getColor() +
-                        ", объём двигателя " + lada.getEngineVolume());
-        System.out.println(
-                "Марка автомобиля " + audi.getBrand() +
-                        ", модель " + audi.getModel() +
-                        ", год выпуска " + audi.getYear() +
-                        ", страна производства " + audi.getCountry() +
-                        ", цвет " + audi.getColor() +
-                        ", объём двигателя " + audi.getEngineVolume());
-        System.out.println(
-                "Марка автомобиля " + bmw.getBrand() +
-                        ", модель " + bmw.getModel() +
-                        ", год выпуска " + bmw.getYear() +
-                        ", страна производства " + bmw.getCountry() +
-                        ", цвет " + bmw.getColor() +
-                        ", объём двигателя " + bmw.getEngineVolume());
-        System.out.println(
-                "Марка автомобиля " + kia.getBrand() +
-                        ", модель " + kia.getModel() +
-                        ", год выпуска " + kia.getYear() +
-                        ", страна производства " + kia.getCountry() +
-                        ", цвет " + kia.getColor() +
-                        ", объём двигателя " + kia.getEngineVolume());
-        System.out.println(
-                "Марка автомобиля " + hyundai.getBrand() +
-                        ", модель " + hyundai.getModel() +
-                        ", год выпуска " + hyundai.getYear() +
-                        ", страна производства " + hyundai.getCountry() +
-                        ", цвет " + hyundai.getColor() +
-                        ", объём двигателя " + hyundai.getEngineVolume());
-        printInfo(lada);
-        printInfo(audi);
-        printInfo(bmw);
-        printInfo(kia);
-        printInfo(hyundai);
+                "Южная Корея",
+                -180,
+                "АКПП",
+                "седан",
+                "т495ук390",
+                5,
+                true,
+                null,
+                null);
+        System.out.println(hyundai);
+
+        for (int i = 1; i <= 3; i++) {
+            Bus bus = new Bus(
+                    "Bus brand №" + i,
+                    "Bus model №" + i,
+                    2015 + i,
+                    "Россия",
+                    "жёлтый",
+                    110
+            );
+            System.out.println(bus);
+        }
     }
 
-    public static void printInfo(Auto auto) {
-        System.out.println(
-                auto.getBrand() + " " + auto.getModel() +
-                        ", год выпуска: " + auto.getYear() +
-                        ", страна сборки: " + auto.getCountry() +
-                        ", цвет кузова: " + auto.getColor() +
-                        ", объём двигателя: " + auto.getEngineVolume() +
-                        ", коробка передач: " + auto.getTransmission() +
-                        ", тип кузова: " + auto.getBodyType() +
-                        ", рег. номер: " + auto.getRegistrationNumber() +
-                        ", количество мест: " + auto.getNumberOfSeats() +
-                        ", " + (auto.isSummerTires() ? "летняя" : "зимняя") + " резина" +
-                        ", " + (auto.getKey().isKeylessAccess() ? "безключевой доступ" : "доступ только с ключа") +
-                        ", " + (auto.getKey().isRemoteEngineStart() ? "удалённый запуск" : "удалённый запуск отсутствует") +
-                        ", номер страховки: " + auto.getInsurance().getNumber() +
-                        ", стоимость страховки: " + auto.getInsurance().getCost() +
-                        ", срок действия страховки: " + auto.getInsurance().getValidityPeriod()
 
-        );
-    }
 }
