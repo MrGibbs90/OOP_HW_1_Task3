@@ -2,13 +2,8 @@ package transport;
 
 import java.time.LocalDate;
 
-public class Auto {
-   private final String brand;
-   private final String model;
+public class Auto extends Transport {
     private double engineVolume;
-    private String color;
-   private final int year;
-    private final String country;
     private String transmission;
     private final String bodyType;
     private String registrationNumber;
@@ -24,6 +19,7 @@ public class Auto {
                 String color,
                 int year,
                 String country,
+                int maximumMovementSpeed,
                 String transmission,
                 String bodyType,
                 String registrationNumber,
@@ -31,32 +27,13 @@ public class Auto {
                 boolean summerTires,
                 Key key,
                 Insurance insurance) {
-        if (brand == null) {
-            this.brand = "default";
-        } else {
-            this.brand = brand;
-        }
-        if (model == null) {
-            this.model = "default";
-        } else {
-            this.model = model;
-        }
-            this.engineVolume = engineVolume;
-        if (color == null) {
-            this.color = "default";
-        } else {
-            this.color = color;
-        }
-        if (country == null || country == "") {
-            country = "default";
-        }
-        this.year = year;
+        super(brand, model, year, country, color, maximumMovementSpeed);
+        setEngineVolume(engineVolume);
         if (transmission == null) {
             this.transmission = "МКПП";
         } else {
             this.transmission = transmission;
         }
-        this.country = country;
         if (registrationNumber == null) {
             this.registrationNumber = "х000хх000";
         } else {
@@ -73,7 +50,7 @@ public class Auto {
             this.key = key;
         }
         if (insurance == null) {
-            this.insurance= new Insurance();
+            this.insurance = new Insurance();
         } else {
             this.insurance = insurance;
         }
@@ -95,6 +72,7 @@ public class Auto {
                 color,
                 year,
                 country,
+                120,
                 "МКПП",
                 "седан",
                 "х000хх000",
@@ -113,13 +91,6 @@ public class Auto {
         this.engineVolume = engineVolume;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 
     public String getTransmission() {
         return transmission;
@@ -148,22 +119,6 @@ public class Auto {
 
     public void setSummerTires(boolean summerTires) {
         this.summerTires = summerTires;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public String getCountry() {
-        return country;
     }
 
     public String getBodyType() {
@@ -278,5 +233,15 @@ public class Auto {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return super.toString() + ", " +
+                "объём двигателя=" + engineVolume +
+                ", коробка передач='" + transmission + '\'' +
+                ", тип кузова='" + bodyType + '\'' +
+                ", номер='" + registrationNumber + '\'' +
+                ", количество мест=" + numberOfSeats + ", " +
+                (summerTires ? "летняя" : "зимняя") + " резина" + ", " +
+                key;
+    }
 }
